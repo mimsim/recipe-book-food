@@ -19,6 +19,9 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
 
 import { DropdownDirective } from './shared/dropdown.directive';
 import { RecipeService } from './recipes/recipe.service';
+import { PipeCompComponent } from './pipe-comp/pipe-comp.component';
+import { ShortenPipe } from './shorten.pipe';
+import { FilterPipe } from './filter.pipe';
 
 
 
@@ -34,7 +37,10 @@ import { RecipeService } from './recipes/recipe.service';
     RecipeItemComponent,
     RecipeStartComponent,
     RecipeEditComponent,
-    DropdownDirective
+    DropdownDirective,
+    PipeCompComponent,
+    ShortenPipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

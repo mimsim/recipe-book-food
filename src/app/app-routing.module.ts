@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PipeCompComponent } from './pipe-comp/pipe-comp.component';
 
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'shopping-list',
     component: ShoppingListComponent
+  },
+  {
+    path: 'pipe',
+    component: PipeCompComponent
   },
 ];
 
