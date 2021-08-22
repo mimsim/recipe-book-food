@@ -23,6 +23,7 @@ import { RecipeService } from './recipes/recipe.service';
 import { PipeCompComponent } from './pipe-comp/pipe-comp.component';
 import { ShortenPipe } from './shorten.pipe';
 import { FilterPipe } from './filter.pipe';
+import { AuthComponent } from './auth/auth.component';
 
 
 
@@ -41,7 +42,8 @@ import { FilterPipe } from './filter.pipe';
     DropdownDirective,
     PipeCompComponent,
     ShortenPipe,
-    FilterPipe
+    FilterPipe,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

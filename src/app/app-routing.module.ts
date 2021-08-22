@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthComponent } from './auth/auth.component';
 import { PipeCompComponent } from './pipe-comp/pipe-comp.component';
 
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
@@ -45,6 +46,9 @@ const routes: Routes = [
   {
     path: 'pipe',
     component: PipeCompComponent
+  },{
+    path: 'auth',
+    component: AuthComponent
   },
 ];
 

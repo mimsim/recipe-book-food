@@ -9,6 +9,7 @@
           <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
           <li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
           <li routerLinkActive="active"><a routerLink="/pipe">pipe</a></li>
+          <li routerLinkActive="active"><a routerLink="/auth">Auth</a></li>
         </ul>
         <!-- <ul class="nav navbar-nav navbar-right">
           <li class="dropdown" appDropdown>
@@ -23,7 +24,7 @@
       <div ngbDropdown class="d-inline-block">
         <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Manage</button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem (click)="onSaveData()">Save Data</button>
+          <button ngbDropdownItem (click)="onSaveData()">Save Data</button> 
           <button ngbDropdownItem (click)="onFetchData()"> Fetch Data</button>
         </div>
       </div>
