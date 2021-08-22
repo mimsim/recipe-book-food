@@ -24,6 +24,7 @@ import { PipeCompComponent } from './pipe-comp/pipe-comp.component';
 import { ShortenPipe } from './shorten.pipe';
 import { FilterPipe } from './filter.pipe';
 import { AuthComponent } from './auth/auth.component';
+import { LoaldingComponent } from './shared/loalding/loalding.component';
 
 
 
@@ -43,7 +44,8 @@ import { AuthComponent } from './auth/auth.component';
     PipeCompComponent,
     ShortenPipe,
     FilterPipe,
-    AuthComponent
+    AuthComponent,
+    LoaldingComponent
   ],
   imports: [
     BrowserModule,
