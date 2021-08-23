@@ -21,9 +21,11 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   onSwichMode() {
     this.isLoginMode = !this.isLoginMode;
   }
+  
   onSubmit(form: NgForm) {
     if (!form.valid) {
       return
