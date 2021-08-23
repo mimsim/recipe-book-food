@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -25,6 +25,7 @@ import { ShortenPipe } from './shorten.pipe';
 import { FilterPipe } from './filter.pipe';
 import { AuthComponent } from './auth/auth.component';
 import { LoaldingComponent } from './shared/loalding/loalding.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 
 
@@ -55,7 +56,14 @@ import { LoaldingComponent } from './shared/loalding/loalding.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [ShoppingListService, RecipeService],
+  providers: [
+    ShoppingListService, 
+    RecipeService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

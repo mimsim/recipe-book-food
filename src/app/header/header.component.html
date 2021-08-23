@@ -14,7 +14,7 @@
       </div>
       <div ngbDropdown class="d-inline-block">
         <ul class="nav navbar-nav">
-          <li routerLinkActive="active" *ngIf="isAuthenticated"><a>Logout</a></li>
+          <li routerLinkActive="active" *ngIf="isAuthenticated"><button (click)="onLogout()" class="btn btn-outline-primary">Logout</button></li>
         </ul>
         <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Manage</button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
