@@ -16,27 +16,28 @@ export class DataStorageService {
 
     storeRecipes() {
         const recipes = this.recipeService.getRecipes();
-        return this.http.put('https://food-375e0-default-rtdb.firebaseio.com/recipes.json', recipes).subscribe(response => {
-            console.log(response);
-        });
+        this.http
+            .put('https://food-375e0-default-rtdb.firebaseio.com/recipes.json', recipes)
+            .subscribe(response => {
+                console.log(response);
+            });
     }
     fetchRecipes() {
-       return this.authService.user.pipe(take(1), 
-        exhaustMap(user => {
-            return this.http
-                .get<Recipe[]>('https://food-375e0-default-rtdb.firebaseio.com/recipes.json',
-                {
-                  params: new HttpParams().set('auth', user.token)
+        return this.http
+            .get<Recipe[]>('https://food-375e0-default-rtdb.firebaseio.com/recipes.json'
+            )
+            .pipe(
+                map(recipes => {
+                    return recipes.map(recipe => {
+                        return {
+                            ...recipe,
+                            ingredients: recipe.ingredients ? recipe.ingredients : []
+                        };
+                    });
+                }),
+                tap(recipes => {
+                    this.recipeService.setRecipes(recipes);
                 })
-        }),
-            map(recipes => {
-                return recipes.map(recipe => {
-                    return { ...recipe, ingredients: recipe.ingredients ? recipe.ingredients : [] };
-                });
-            }),
-            tap(recipes => {
-                this.recipeService.setRecipes(recipes);
-            })
-        );
+            );
     }
 }
