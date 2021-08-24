@@ -12,36 +12,19 @@ import { UserModel } from './user.model';
 export class AuthService {
   user = new BehaviorSubject<UserModel>(null);
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router) { }
 
   singup(email: string, password: string) {
     return this.http
-    .post<AuthResponseModel>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBSc689TI4kToIN1_3VaqWMHooHN7UgkWI', {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    }
-    ).pipe(
-      catchError(this.handleError), tap(resData => {
-       this.handleAuth(
-         resData.email, 
-         resData.localId, 
-         resData.idToken, 
-         +resData.expiresIn
-        );
-      })
-    );
-  }
-  login(email: string, password: string) {
-    return this.http
-    .post<AuthResponseModel>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBSc689TI4kToIN1_3VaqWMHooHN7UgkWI',
-      {
+      .post<AuthResponseModel>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBSc689TI4kToIN1_3VaqWMHooHN7UgkWI', {
         email: email,
         password: password,
         returnSecureToken: true
-      }).pipe(
-        catchError(this.handleError),
-        tap(resData => {
+      }
+      ).pipe(
+        catchError(this.handleError), tap(resData => {
           this.handleAuth(
             resData.email,
             resData.localId,
@@ -51,14 +34,56 @@ export class AuthService {
         })
       );
   }
+  login(email: string, password: string) {
+    return this.http
+      .post<AuthResponseModel>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBSc689TI4kToIN1_3VaqWMHooHN7UgkWI',
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true
+        }).pipe(
+          catchError(this.handleError),
+          tap(resData => {
+            this.handleAuth(
+              resData.email,
+              resData.localId,
+              resData.idToken,
+              +resData.expiresIn
+            );
+          })
+        );
+  }
+
+  autoLogin() {
+    const userData: {
+      email: string;
+      id: string;
+      _tiken: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
+      return;
+    }
+    const loadedUser = new UserModel(
+      userData.email,
+      userData.id,
+      userData._tiken,
+      new Date(userData._tokenExpirationDate)
+    );
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+    }
+  }
+
   logout() {
     this.user.next(null);
     this.router.navigate(['/auth']);
   }
-  private handleAuth(email: string, userId: string, token: string, expiresIn: number){
+  private handleAuth(email: string, userId: string, token: string, expiresIn: number) {
     const experitionDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new UserModel(email, userId, token, experitionDate);
     this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   private handleError(errorRes: HttpErrorResponse) {
