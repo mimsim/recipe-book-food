@@ -26,6 +26,7 @@ import { FilterPipe } from './filter.pipe';
 import { AuthComponent } from './auth/auth.component';
 import { LoaldingComponent } from './shared/loalding/loalding.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { AlertComponent } from './alert/alert.component';
 
 
 
@@ -46,7 +47,8 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     ShortenPipe,
     FilterPipe,
     AuthComponent,
-    LoaldingComponent
+    LoaldingComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
