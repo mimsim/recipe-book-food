@@ -27,6 +27,7 @@ import { AuthComponent } from './auth/auth.component';
 import { LoaldingComponent } from './shared/loalding/loalding.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './alert/alert.component';
+import { PlaceholderDirective } from './placeholder/placeholder.directive';
 
 
 
@@ -48,7 +49,8 @@ import { AlertComponent } from './alert/alert.component';
     FilterPipe,
     AuthComponent,
     LoaldingComponent,
-    AlertComponent
+    AlertComponent,
+    PlaceholderDirective
   ],
   imports: [
     BrowserModule,

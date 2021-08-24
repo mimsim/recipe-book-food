@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AlertComponent } from '../alert/alert.component';
 import { AuthResponseModel } from '../shared/authResponseModel.model';
 import { AuthService } from './auth.service';
 
@@ -17,7 +18,8 @@ export class AuthComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
   }
@@ -25,7 +27,7 @@ export class AuthComponent implements OnInit {
   onSwichMode() {
     this.isLoginMode = !this.isLoginMode;
   }
-  
+
   onSubmit(form: NgForm) {
     if (!form.valid) {
       return
@@ -52,12 +54,16 @@ export class AuthComponent implements OnInit {
       errorMessage => {
         console.log(errorMessage);
         this.error = errorMessage;
+        this.showErrorAlert(errorMessage);
         this.isLoalding = false;
       }
     )
     form.reset();
   }
-  onHandleError(){
+  onHandleError() {
     this.error = null;
+  }
+  private showErrorAlert(message: string) {
+    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
   }
 }
