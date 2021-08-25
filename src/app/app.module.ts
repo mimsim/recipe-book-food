@@ -68,6 +68,9 @@ import { PlaceholderDirective } from './placeholder/placeholder.directive';
       useClass: AuthInterceptorService,
       multi: true
     }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  // entryComponents:[
+  //   AlertComponent
+  // ]
 })
 export class AppModule { }
