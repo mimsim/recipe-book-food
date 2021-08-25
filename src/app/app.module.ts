@@ -8,17 +8,14 @@ import { RecipesModule } from './recipes/recipes.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { AuthComponent } from './auth/auth.component';
 
 import { PipeCompComponent } from './pipe-comp/pipe-comp.component';
 import { ShortenPipe } from './shorten.pipe';
 import { FilterPipe } from './filter.pipe';
-
-
-
 
 @NgModule({
   declarations: [
@@ -26,9 +23,7 @@ import { FilterPipe } from './filter.pipe';
     HeaderComponent,
     PipeCompComponent,
     ShortenPipe,
-    FilterPipe,
-    AuthComponent,
-
+    FilterPipe  
   ],
   imports: [
     BrowserModule,
@@ -40,7 +35,8 @@ import { FilterPipe } from './filter.pipe';
     RecipesModule,
     ShoppingListModule,
     SharedModule,
-    CoreModule
+    CoreModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent],
