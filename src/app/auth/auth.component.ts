@@ -2,8 +2,8 @@ import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } fro
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { AlertComponent } from '../alert/alert.component';
-import { PlaceholderDirective } from '../placeholder/placeholder.directive';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 import { AuthResponseModel } from '../shared/authResponseModel.model';
 import { AuthService } from './auth.service';
 
