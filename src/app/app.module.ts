@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -13,6 +14,8 @@ import { HeaderComponent } from './header/header.component';
 import { PipeCompComponent } from './pipe-comp/pipe-comp.component';
 import { ShortenPipe } from './shorten.pipe';
 import { FilterPipe } from './filter.pipe';
+import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import { FilterPipe } from './filter.pipe';
     HttpClientModule,
     SharedModule,
     CoreModule,
+    StoreModule.forRoot({shoppinList: shoppingListReducer})
 
   ],
   providers: [],
