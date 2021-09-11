@@ -5,6 +5,7 @@ import { DropdownDirective } from './dropdown.directive';
 import { LoaldingComponent } from './loalding/loalding.component';
 import { PlaceholderDirective } from './placeholder/placeholder.directive';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoggingService } from '../logging.service';
 
 
 
@@ -24,6 +25,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoaldingComponent,
     AlertComponent,
     PlaceholderDirective
-  ]
+  ],
+  entryComponents: [AlertComponent],
+  providers: [LoggingService]
 })
 export class SharedModule { }

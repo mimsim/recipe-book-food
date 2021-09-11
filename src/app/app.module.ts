@@ -14,7 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { PipeCompComponent } from './pipe-comp/pipe-comp.component';
 import { ShortenPipe } from './shorten.pipe';
 import { FilterPipe } from './filter.pipe';
-import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+import * as fromApp from '../app/store/app.reducer';
 
 
 @NgModule({
@@ -34,7 +34,7 @@ import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer
     HttpClientModule,
     SharedModule,
     CoreModule,
-    StoreModule.forRoot({shoppinList: shoppingListReducer})
+    StoreModule.forRoot(fromApp.appReducer)
 
   ],
   providers: [],
