@@ -15,6 +15,8 @@ import { PipeCompComponent } from './pipe-comp/pipe-comp.component';
 import { ShortenPipe } from './shorten.pipe';
 import { FilterPipe } from './filter.pipe';
 import * as fromApp from '../app/store/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './auth/store/auth.effects';
 
 
 @NgModule({
@@ -23,7 +25,7 @@ import * as fromApp from '../app/store/app.reducer';
     HeaderComponent,
     PipeCompComponent,
     ShortenPipe,
-    FilterPipe  
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -34,8 +36,8 @@ import * as fromApp from '../app/store/app.reducer';
     HttpClientModule,
     SharedModule,
     CoreModule,
-    StoreModule.forRoot(fromApp.appReducer)
-
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([AuthEffects])
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -6,6 +6,9 @@ import { AlertComponent } from '../shared/alert/alert.component';
 import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 import { AuthResponseModel } from '../shared/authResponseModel.model';
 import { AuthService } from './auth.service';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
 
 @Component({
   selector: 'app-auth',
@@ -22,9 +25,18 @@ export class AuthComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private componentFactoryResolver: ComponentFactoryResolver) { }
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private store: Store<fromApp.IAppState>
+  ) { }
 
   ngOnInit(): void {
+    this.store.select('auth').subscribe(authState => {
+      this.isLoalding = authState.loading;
+      this.error = authState.authError;   
+      if(this.error){
+        this.showErrorAlert(this.error);   
+      }
+    });
   }
 
   onSwichMode() {
@@ -44,23 +56,25 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.isLoalding = true;
 
     if (this.isLoginMode) {
-      authObs = this.authService.login(email, password);
+      this.store.dispatch(new AuthActions.LoginStart({ email: email, password: password }));
+      //authObs = this.authService.login(email, password);
     } else {
       authObs = this.authService.singup(email, password);
     }
-    authObs.subscribe(
-      resData => {
-        console.log(resData);
-        this.isLoalding = false;
-        this.router.navigate(['/recipes']);
-      },
-      errorMessage => {
-        console.log(errorMessage);
-        this.error = errorMessage;
-        this.showErrorAlert(errorMessage);
-        this.isLoalding = false;
-      }
-    )
+
+    // authObs.subscribe(
+    //   resData => {
+    //     console.log(resData);
+    //     this.isLoalding = false;
+    //     this.router.navigate(['/recipes']);
+    //   },
+    //   errorMessage => {
+    //     console.log(errorMessage);
+    //     this.error = errorMessage;
+    //     this.showErrorAlert(errorMessage);
+    //     this.isLoalding = false;
+    //   }
+    // )
     form.reset();
   }
   onHandleError() {
