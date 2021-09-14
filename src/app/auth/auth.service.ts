@@ -37,7 +37,7 @@ export class AuthService {
 
   singup(email: string, password: string) {
     return this.http
-      .post<AuthResponseModel>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIkey, {
+      .post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIkey, {
         email: email,
         password: password,
         returnSecureToken: true
@@ -91,7 +91,7 @@ export class AuthService {
     );
     if (loadedUser.token) {
       //this.user.next(loadedUser);
-      this.store.dispatch(new AuthActions.Login({
+      this.store.dispatch(new AuthActions.AuthenticateSuccess({
         email: loadedUser.email,
         userId: loadedUser.id,
         token: loadedUser.token,
@@ -131,7 +131,7 @@ export class AuthService {
     // this.user.next(user);
     const user = new UserModel(email, userId, token, expirationDate);
     this.store.dispatch(
-      new AuthActions.Login({
+      new AuthActions.AuthenticateSuccess({
         email: email,
         userId: userId,
         token: token,
