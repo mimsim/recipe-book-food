@@ -21,6 +21,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   error: string = null;
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective;
   private closeSub: Subscription;
+  private storeSub: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -30,11 +31,11 @@ export class AuthComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.store.select('auth').subscribe(authState => {
+    this.storeSub = this.store.select('auth').subscribe(authState => {
       this.isLoalding = authState.loading;
-      this.error = authState.authError;   
-      if(this.error){
-        this.showErrorAlert(this.error);   
+      this.error = authState.authError;
+      if (this.error) {
+        this.showErrorAlert(this.error);
       }
     });
   }
@@ -51,38 +52,23 @@ export class AuthComponent implements OnInit, OnDestroy {
     const email = form.value.email;
     const password = form.value.password;
 
-    let authObs: Observable<AuthResponseModel>;
-
-    this.isLoalding = true;
-
     if (this.isLoginMode) {
       this.store.dispatch(new AuthActions.LoginStart({ email: email, password: password }));
       //authObs = this.authService.login(email, password);
     } else {
-      authObs = this.authService.singup(email, password);
+      this.store.dispatch(new AuthActions.SignupStart({ email: email, password: password }))
     }
-
-    // authObs.subscribe(
-    //   resData => {
-    //     console.log(resData);
-    //     this.isLoalding = false;
-    //     this.router.navigate(['/recipes']);
-    //   },
-    //   errorMessage => {
-    //     console.log(errorMessage);
-    //     this.error = errorMessage;
-    //     this.showErrorAlert(errorMessage);
-    //     this.isLoalding = false;
-    //   }
-    // )
     form.reset();
   }
   onHandleError() {
-    this.error = null;
+    this.store.dispatch(new AuthActions.ClearError());
   }
   ngOnDestroy() {
     if (this.closeSub) {
       this.closeSub.unsubscribe();
+    }
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
     }
   }
   private showErrorAlert(message: string) {
