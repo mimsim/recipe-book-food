@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { AuthService } from './auth/auth.service';
+import { LoggingService } from './logging.service';
+
+import * as fromApp from './store/app.reducer';
+import * as AuthActions from './auth/store/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +14,15 @@ import { AuthService } from './auth/auth.service';
 export class AppComponent implements OnInit {
   title = 'food';
 
-  constructor(private auhtService: AuthService) { }
+  constructor(
+    private auhtService: AuthService,
+    private store: Store<fromApp.IAppState>,
+    private loggingService: LoggingService
+    ) { }
+
   ngOnInit() {
-    this.auhtService.autoLogin();
+    this.store.dispatch(new AuthActions.AuthoLogin());
+    this.loggingService.printLog('hi');
   }
 
   // loadedFeature = 'recipe';
