@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { RecipeService } from '../recipe.service';
 
 import * as fromApp from '../../store/app.reducer';
 import * as RecipesActions from '../store/recipe.actions';
@@ -17,16 +16,19 @@ import * as RecipesActions from '../store/recipe.actions';
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.scss']
 })
-export class RecipeEditComponent implements OnInit {
+export class RecipeEditComponent implements OnInit, OnDestroy {
   id: number;
   editMode = false;
   recipeForm: FormGroup;
 
-  private storeSub = Subscription;
+  private storeSub: Subscription;
+
+  get ingredientsControls() {
+    return (this.recipeForm.get('ingredients') as FormArray).controls;
+  }
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService,
     private router: Router,
     private store: Store<fromApp.IAppState>) { }
 
@@ -72,6 +74,13 @@ export class RecipeEditComponent implements OnInit {
   onDeleteIngredient(index: number) {
     (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
   }
+
+  ngOnDestroy() {
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
+    }
+  }
+
   private initForm() {
     let recipeName = '';
     let recipeImagePath = '';
@@ -81,7 +90,7 @@ export class RecipeEditComponent implements OnInit {
 
     if (this.editMode) {
       //  const recipe = this.recipeService.getRecipe(this.id);
-      this.store.select('recipes').pipe(map(recipesState => {
+      this.storeSub = this.store.select('recipes').pipe(map(recipesState => {
         return recipesState.recipes.find((recipe, index) => {
           return index === this.id;
         })
