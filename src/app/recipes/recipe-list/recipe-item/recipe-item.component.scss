@@ -1,3 +1,22 @@
-.pointer{
-    cursor: pointer;
+.pointer {
+  cursor: pointer;
+}
+
+.pull-left {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-group-item {
+  display: flex;
+  flex-direction: row;
+}
+
+.pull-right {
+  justify-content: end;
+}
+
+.img-responsive {
+  max-height: 50px;
 }

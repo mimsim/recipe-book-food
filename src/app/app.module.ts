@@ -11,10 +11,10 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 
-import { PipeCompComponent } from './pipe-comp/pipe-comp.component';
 import { ShortenPipe } from './shorten.pipe';
 import { FilterPipe } from './filter.pipe';
 import * as fromApp from '../app/store/app.reducer';
+
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth/store/auth.effects';
 import { RecipeEffects } from './recipes/store/recipe.effects';
@@ -24,7 +24,6 @@ import { RecipeEffects } from './recipes/store/recipe.effects';
   declarations: [
     AppComponent,
     HeaderComponent,
-    PipeCompComponent,
     ShortenPipe,
     FilterPipe
   ],

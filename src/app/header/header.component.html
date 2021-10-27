@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light bg-light">
+<!-- <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
       <div class="navbar-header">
         <a href="#" class="navbar-brand">Recipe Book NgRx</a>
@@ -24,4 +24,39 @@
       </div>
     </div>
   </nav>
+   -->
+
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Recipe Book - RxJs </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active" routerLinkActive="active">
+          <a class="nav-link" routerLink="/auth" *ngIf="!isAuthenticated">Authenticate</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/recipes" *ngIf="isAuthenticated">Recipes</a>
+        </li>
+        <li class="nav-item active" routerLinkActive="active">
+          <a class="nav-link" routerLink="/shopping-list">Shopping List</a>
+        </li>        
+        <li class="nav-item mr-2" routerLinkActive="active" *ngIf="isAuthenticated">
+          <button (click)="onLogout()" class="btn btn-outline-primary">Logout</button>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <div ngbDropdown class="d-inline-block">
+  
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Manage</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem (click)="onSaveData()">Save Data</button>
+              <button ngbDropdownItem (click)="onFetchData()">Fetch Data</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
